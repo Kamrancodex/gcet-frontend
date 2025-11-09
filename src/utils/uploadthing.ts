@@ -3,7 +3,13 @@ import {
   generateUploadDropzone,
 } from "@uploadthing/react";
 
-import type { OurFileRouter } from "../../../backend/src/utils/uploadthing";
+// Type definition for the file router
+type OurFileRouter = {
+  imageUploader: {
+    input: void;
+    output: { url: string; key: string; name: string; size: number };
+  };
+};
 
 export const UploadButton = generateUploadButton<OurFileRouter>();
 export const UploadDropzone = generateUploadDropzone<OurFileRouter>();
