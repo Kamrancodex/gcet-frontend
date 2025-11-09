@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
   CheckCircle,
   XCircle,
-  Clock,
   FileText,
   AlertTriangle,
   UserSearch,
@@ -20,7 +19,7 @@ import { toast } from "sonner";
 
 const LibraryNOC = () => {
   // States for Generate NOC
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [studentSearch, setStudentSearch] = useState("");
   const [searchedStudent, setSearchedStudent] = useState<any>(null);
   const [studentDetails, setStudentDetails] = useState<any>(null);

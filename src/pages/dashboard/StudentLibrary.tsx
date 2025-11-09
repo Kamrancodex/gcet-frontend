@@ -62,7 +62,7 @@ const StudentLibrary: React.FC = () => {
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.universityRegNumber]);
+  }, [(user as any)?.universityRegNumber]);
 
   const loadData = async () => {
     try {

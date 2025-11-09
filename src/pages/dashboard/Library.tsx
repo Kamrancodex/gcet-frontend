@@ -1,4 +1,3 @@
-import React from "react";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import { BookOpen, Search, Clock, Star } from "lucide-react";
 

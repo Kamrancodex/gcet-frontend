@@ -18,9 +18,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { motion } from "framer-motion";
 import {
   GripVertical,
-  MoreVertical,
-  Maximize2,
-  Minimize2,
   X,
   Settings as SettingsIcon,
 } from "lucide-react";
@@ -261,4 +258,3 @@ const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
 };
 
 export default DashboardWidgets;
-export type { Widget };

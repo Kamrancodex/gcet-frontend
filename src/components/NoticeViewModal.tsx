@@ -131,46 +131,6 @@ Generated on: ${new Date().toLocaleString()}
     }
   };
 
-  const handleDownload = () => {
-    const content = `
-GOVT COLLEGE OF ENGINEERING AND TECHNOLOGY SAFAPORA
-OFFICIAL NOTICE
-
-Title: ${notice.title}
-Type: ${notice.type.toUpperCase()}
-Priority: ${notice.priority.toUpperCase()}
-Published: ${formatDate(notice.publishedAt)}
-Valid Until: ${formatDate(notice.endDate)}
-
-Content:
-${notice.content}
-
-${
-  notice.links && notice.links.length > 0
-    ? `
-Additional Links:
-${notice.links.map((link) => `• ${link.title}: ${link.url}`).join("\n")}
-`
-    : ""
-}
-
----
-Signed by: Principal, GCET Safapora
-Published by: ${notice.publishedBy}
-    `;
-
-    const blob = new Blob([content], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `notice-${notice.title
-      .replace(/[^a-zA-Z0-9]/g, "-")
-      .toLowerCase()}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {

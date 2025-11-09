@@ -8,8 +8,6 @@ import {
   User,
   LogOut,
   ChevronDown,
-  Sun,
-  Moon,
   HelpCircle,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -25,8 +23,6 @@ interface DashboardTopbarProps {
 const DashboardTopbar: React.FC<DashboardTopbarProps> = ({
   title,
   onMobileMenuToggle,
-  sidebarCollapsed,
-  onSidebarToggle,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showUserMenu, setShowUserMenu] = useState(false);

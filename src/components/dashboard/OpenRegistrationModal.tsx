@@ -15,7 +15,7 @@ import { registrationAPI, noticesAPI } from "../../services/api";
 interface OpenRegistrationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onRegistrationCreated: (registration: unknown) => void;
+  onRegistrationCreated: (registration: any) => void;
   editSession?: {
     _id: string;
     sessionId: string;

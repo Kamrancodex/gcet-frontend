@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
   Filter,
@@ -9,7 +9,6 @@ import {
   X,
   Calendar,
   Mail,
-  Phone,
   GraduationCap,
 } from "lucide-react";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";

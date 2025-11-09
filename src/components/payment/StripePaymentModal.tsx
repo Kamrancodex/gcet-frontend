@@ -6,7 +6,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { CreditCard, Loader2, X, CheckCircle } from "lucide-react";
+import { CreditCard, Loader2, X } from "lucide-react";
 
 const stripePromise = loadStripe(
   "pk_test_51SAWHnEVDjJpw1ZUjwZeJnrq3KlLWILZCBFXklIZFGx00xz7fsONTuIMLy6kSVa9ysqTidqMXRANJ4ZKoB2jkwCE000ZHtT5bH"

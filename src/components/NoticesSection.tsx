@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  Bell, Calendar, Users, ChevronRight, Megaphone, GraduationCap, CreditCard,
-  FileText, Settings, AlertCircle, School, ExternalLink, Clock, ClipboardList,
+  Bell, Calendar, ChevronRight, Megaphone, GraduationCap, CreditCard,
+  FileText, Settings, School, Clock, ClipboardList,
 } from "lucide-react";
 import { noticesAPI, registrationAPI } from "../services/api";
 import NoticeViewModal from "./NoticeViewModal";
@@ -47,12 +47,6 @@ const NoticeTypeIcons = {
   registration: ClipboardList,
 };
 
-const PriorityColors = {
-  low: "text-green-600",
-  medium: "text-yellow-600", 
-  high: "text-orange-600",
-  urgent: "text-red-600",
-};
 
 const NoticesSection = () => {
   const [notices, setNotices] = useState<Notice[]>([]);

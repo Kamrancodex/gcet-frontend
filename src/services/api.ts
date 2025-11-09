@@ -806,6 +806,31 @@ export const notificationsAPI = {
   getStats: () => api.get("/api/notifications/stats"),
 };
 
+// Messaging API
+export const messagingAPI = {
+  getConversations: () => api.get("/api/messaging/conversations"),
+  getConversation: (id: string) =>
+    api.get(`/api/messaging/conversations/${id}`),
+  getMessages: (conversationId: string) =>
+    api.get(`/api/messaging/conversations/${conversationId}/messages`),
+  sendMessage: (conversationId: string, content: string) =>
+    api.post(`/api/messaging/conversations/${conversationId}/messages`, {
+      content,
+    }),
+  createConversation: (participantIds: string | string[]) =>
+    api.post("/api/messaging/conversations", {
+      participantIds: Array.isArray(participantIds)
+        ? participantIds
+        : [participantIds],
+    }),
+  deleteConversation: (conversationId: string) =>
+    api.delete(`/api/messaging/conversations/${conversationId}`),
+  markAsRead: (conversationId: string) =>
+    api.put(`/api/messaging/conversations/${conversationId}/read`),
+  searchUsers: (query: string) =>
+    api.get("/api/messaging/users/search", { params: { q: query } }),
+};
+
 // AI Assistant API
 export const aiAPI = {
   chat: async (

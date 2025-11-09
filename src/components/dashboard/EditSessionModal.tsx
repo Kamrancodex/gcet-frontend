@@ -3,9 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
   Save,
-  Calendar,
-  DollarSign,
-  Clock,
   GraduationCap,
   AlertCircle,
   BookOpen,
@@ -66,13 +63,6 @@ const EditSessionModal: React.FC<EditSessionModalProps> = ({
     }
   }, [session]);
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};

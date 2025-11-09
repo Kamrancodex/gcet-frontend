@@ -3,13 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
   Save,
-  Link as LinkIcon,
   Plus,
   Trash2,
-  Calendar,
-  Users,
-  AlertCircle,
-  FileText,
 } from "lucide-react";
 
 interface NoticeModalProps {

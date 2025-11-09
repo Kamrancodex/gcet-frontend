@@ -30,9 +30,9 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
     setSelectedMethod(method);
   };
 
-  const handleBack = () => {
-    setSelectedMethod(null);
-  };
+  // const _handleBack = () => {
+  //   setSelectedMethod(null);
+  // };
 
   if (!isOpen) return null;
 
@@ -188,15 +188,3 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
 };
 
 export default PaymentMethodSelector;
-
-
-
-
-
-
-
-
-
-
-
-

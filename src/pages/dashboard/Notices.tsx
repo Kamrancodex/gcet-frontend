@@ -16,7 +16,6 @@ import {
   Trash2,
   ToggleLeft,
   ToggleRight,
-  Eye,
   Download,
   ExternalLink,
   AlertCircle,
@@ -510,7 +509,7 @@ Published by: ${notice.publishedBy}
           setEditingNotice(null);
         }}
         onSave={handleSaveNotice}
-        notice={editingNotice}
+        notice={editingNotice as any}
         mode={modalMode}
       />
 

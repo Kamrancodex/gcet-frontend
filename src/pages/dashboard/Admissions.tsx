@@ -4,7 +4,6 @@ import OpenRegistrationModal from "../../components/dashboard/OpenRegistrationMo
 import { registrationAPI } from "../../services/api";
 import {
   Plus,
-  Filter,
   Search,
   Calendar,
   Users,
@@ -17,7 +16,6 @@ import {
   Eye,
   Edit,
   School,
-  FileText,
   Download,
 } from "lucide-react";
 
@@ -31,11 +29,15 @@ interface RegistrationSession {
   feeAmount: number;
   feeDeadline: string;
   isActive: boolean;
-  availableCourses: string[];
-  libraryRequirement: boolean; // true for 5th & 7th semester
-  totalRegistrations: number;
-  completedRegistrations: number;
-  pendingRegistrations: number;
+  availableCourses?: string[];
+  libraryRequirement?: boolean; // true for 5th & 7th semester
+  totalRegistrations?: number;
+  completedRegistrations?: number;
+  pendingRegistrations?: number;
+  totalApplications?: number;
+  approvedApplications?: number;
+  rejectedApplications?: number;
+  pendingApplications?: number;
   createdBy: string;
   createdAt: string;
   updatedAt: string;
@@ -57,6 +59,9 @@ interface Registration {
   libraryCleared: boolean;
   registeredAt: string;
   sessionId: string;
+  course?: string;
+  semester?: number;
+  appliedAt?: string;
 }
 
 const Admissions: React.FC = () => {
@@ -604,7 +609,9 @@ const Admissions: React.FC = () => {
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {formatDate(application.appliedAt)}
+                            {formatDate(
+                              application.appliedAt || application.registeredAt
+                            )}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div className="flex items-center justify-end gap-2">
@@ -625,7 +632,7 @@ const Admissions: React.FC = () => {
                   </table>
                 </div>
 
-                {filteredApplications.length === 0 && (
+                {filteredRegistrations.length === 0 && (
                   <div className="text-center py-12">
                     <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">

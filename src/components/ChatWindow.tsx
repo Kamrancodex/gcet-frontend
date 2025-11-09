@@ -45,7 +45,7 @@ export default function ChatWindow({ conversation, onClose }: ChatWindowProps) {
   const [sending, setSending] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   const { user } = useAuth();
   const {

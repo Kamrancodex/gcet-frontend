@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { Users } from "lucide-react";
@@ -21,7 +21,7 @@ const Dashboard = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
   const [admissionSettings, setAdmissionSettings] = useState<any>(null);
-  const [notices, setNotices] = useState<any[]>([]);
+  const [, setNotices] = useState<any[]>([]);
   const [libraryStats, setLibraryStats] = useState<any>(null);
   const [loadingData, setLoadingData] = useState(false);
   const [studentProfile, setStudentProfile] = useState<any>(null);
@@ -91,7 +91,7 @@ const Dashboard = () => {
       console.log("✅ Library Stats API Response:", libraryResponse);
       setLibraryStats(libraryResponse);
       console.log("📚 Library Stats State Updated:", libraryResponse);
-    } catch (error) {
+    } catch (error: any) {
       console.error("❌ Failed to load library data:", error);
       console.error("❌ Error details:", error.response?.data || error.message);
       // Set fallback data structure for better error handling

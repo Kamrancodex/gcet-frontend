@@ -6,7 +6,6 @@ import {
   Heart,
   MessageCircle,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { socialAPI, getUser } from "../services/api";
 import SocialSidebar from "../components/social/SocialSidebar";
@@ -33,7 +32,6 @@ interface Post {
 }
 
 const SocialHub: React.FC = () => {
-  const navigate = useNavigate();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreatePost, setShowCreatePost] = useState(false);
@@ -185,18 +183,6 @@ const SocialHub: React.FC = () => {
     }
   };
 
-  const getSortLabel = (sort: string) => {
-    switch (sort) {
-      case "recent":
-        return "Recent";
-      case "popular":
-        return "Popular";
-      case "trending":
-        return "Trending";
-      default:
-        return "Recent";
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex pt-16">

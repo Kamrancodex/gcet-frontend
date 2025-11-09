@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
-  Filter,
   BookOpen,
   User,
   Calendar,
   AlertTriangle,
   Clock,
-  Phone,
   Mail,
   RefreshCw,
 } from "lucide-react";

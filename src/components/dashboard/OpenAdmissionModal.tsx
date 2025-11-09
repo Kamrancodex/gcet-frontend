@@ -3,9 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
   Save,
-  Calendar,
-  DollarSign,
-  Clock,
   GraduationCap,
   FileText,
   Bell,

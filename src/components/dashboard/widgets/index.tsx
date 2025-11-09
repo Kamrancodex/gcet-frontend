@@ -7,7 +7,6 @@ import {
   DollarSign,
   TrendingUp,
   Calendar,
-  Clock,
   CheckCircle,
   AlertTriangle,
   ToggleLeft,
@@ -174,7 +173,7 @@ export const RecentActivityWidget: React.FC<{
 
   return (
     <div className="space-y-4 h-full overflow-y-auto">
-      {activityList.map((activity) => {
+      {activityList.map((activity: any) => {
         const Icon = activity.icon;
         return (
           <div key={activity.id} className="flex items-start gap-3">
@@ -201,7 +200,6 @@ export const RecentActivityWidget: React.FC<{
 
 // Calendar Widget
 export const CalendarWidget: React.FC<{ events?: any[] }> = ({ events }) => {
-  const today = new Date();
   const defaultEvents = [
     {
       id: 1,
@@ -252,7 +250,7 @@ export const CalendarWidget: React.FC<{ events?: any[] }> = ({ events }) => {
 };
 
 // Performance Chart Widget
-export const PerformanceWidget: React.FC<{ data?: any }> = ({ data }) => {
+export const PerformanceWidget: React.FC<{ data?: any }> = () => {
   return (
     <div className="h-full">
       <div className="flex items-center justify-between mb-4">

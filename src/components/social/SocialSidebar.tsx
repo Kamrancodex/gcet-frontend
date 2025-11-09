@@ -4,7 +4,6 @@ import {
   Package,
   Plus,
   Search,
-  MessageCircle,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -47,7 +46,6 @@ const SocialSidebar: React.FC<SocialSidebarProps> = ({
     },
   ];
 
-  const bottomItems: SidebarItem[] = [];
 
   const isActive = (path: string) => {
     return (

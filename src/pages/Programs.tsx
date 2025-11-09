@@ -111,7 +111,7 @@ const Programs: React.FC = () => {
       {/* Programs List */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-8">
-          {programs.map((program, index) => (
+          {programs.map((program) => (
             <div
               key={program.id}
               className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200"

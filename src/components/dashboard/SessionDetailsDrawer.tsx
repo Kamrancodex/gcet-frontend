@@ -26,10 +26,10 @@ const SessionDetailsDrawer: React.FC<Props> = ({
   sessionId,
   semester,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [registrations, setRegistrations] = useState<RegistrationRecord[]>([]);
   const [eligibleStudents, setEligibleStudents] = useState<any[]>([]);
+  const [, setLoading] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;

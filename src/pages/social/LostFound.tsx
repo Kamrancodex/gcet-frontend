@@ -2,14 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Plus,
   Search,
-  Filter,
-  MapPin,
-  Calendar,
-  User,
-  ArrowUp,
-  MessageCircle,
-  Eye,
-  Clock,
   Package,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -193,26 +185,6 @@ const LostFound: React.FC = () => {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active":
-        return "bg-green-100 text-green-800";
-      case "claimed":
-        return "bg-yellow-100 text-yellow-800";
-      case "resolved":
-        return "bg-blue-100 text-blue-800";
-      case "expired":
-        return "bg-gray-100 text-gray-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
-  const getTypeColor = (type: string) => {
-    return type === "lost"
-      ? "bg-red-100 text-red-800 border-red-200"
-      : "bg-green-100 text-green-800 border-green-200";
-  };
 
   const activeItems = items.filter((item) => item.status === "active").length;
   const lostItems = items.filter(

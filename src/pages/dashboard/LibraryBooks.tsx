@@ -9,14 +9,37 @@ import {
   X,
   Save,
   AlertTriangle,
-  CheckCircle,
 } from "lucide-react";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import { libraryAPI } from "../../services/api";
 import { toast } from "sonner";
 
+interface Book {
+  _id: string;
+  title: string;
+  author: string;
+  isbn: string;
+  category: string;
+  subject: string;
+  department: string;
+  subBlock?: string;
+  academicLevel: string;
+  semester: number[];
+  price: number;
+  publisher: string;
+  publicationYear: number;
+  pages: number;
+  description: string;
+  totalCopies: number;
+  availableCopies: number;
+  location: string;
+  shelfNumber: string;
+  dailyFine: number;
+  maxBorrowDays: number;
+}
+
 const LibraryBooks = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -26,8 +49,8 @@ const LibraryBooks = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [editingBook, setEditingBook] = useState(null);
-  const [deletingBook, setDeletingBook] = useState(null);
+  const [editingBook, setEditingBook] = useState<Book | null>(null);
+  const [deletingBook, setDeletingBook] = useState<Book | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title: "",

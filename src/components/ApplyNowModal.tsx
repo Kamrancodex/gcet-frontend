@@ -7,7 +7,6 @@ import {
   Bell,
   BookOpen,
   FileText,
-  AlertCircle,
   ExternalLink,
   ChevronRight,
   Clock,
@@ -57,7 +56,6 @@ const ApplyNowModal: React.FC<ApplyNowModalProps> = ({ isOpen, onClose }) => {
         noticesAPI
           .getPublic({
             limit: 10,
-            type: undefined, // Get all types
             audience: "students",
           })
           .catch((e) => {

@@ -8,7 +8,6 @@ import {
   CreditCard,
   Calendar,
   Clock,
-  DollarSign,
   FileText,
   Scan,
 } from "lucide-react";

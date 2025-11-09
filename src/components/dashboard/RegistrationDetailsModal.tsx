@@ -11,8 +11,6 @@ import {
   XCircle,
   Clock,
   DollarSign,
-  FileText,
-  MapPin,
   GraduationCap,
   AlertCircle,
   Library,
@@ -32,7 +30,6 @@ const RegistrationDetailsModal: React.FC<RegistrationDetailsModalProps> = ({
   registration,
   onStatusUpdated,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 

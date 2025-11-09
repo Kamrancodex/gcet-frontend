@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Menu,
-  X,
-  ChevronLeft,
-  ChevronRight,
-  Search,
-  Bell,
-  Settings,
-  User,
-} from "lucide-react";
-import { useAuth } from "../../contexts/AuthContext";
 import DashboardSidebar from "./DashboardSidebar";
 import DashboardTopbar from "./DashboardTopbar";
 
@@ -25,7 +14,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user } = useAuth();
 
   // Handle responsive behavior
   useEffect(() => {

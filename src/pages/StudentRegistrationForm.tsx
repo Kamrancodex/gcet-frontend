@@ -248,9 +248,9 @@ const StudentRegistrationForm: React.FC = () => {
         sessionId: sessionId!,
         selectedCourses: formData.selectedCourses,
         updatedInfo: formData.updatedInfo,
-        paymentId: payment.paymentId,
+        ...(payment.paymentId && { paymentId: payment.paymentId }),
         paymentStatus: "paid",
-      });
+      } as any);
 
       // Persisted in DB; no local caching needed
 
@@ -270,7 +270,7 @@ const StudentRegistrationForm: React.FC = () => {
     }
   };
 
-  const handleNOCReceived = (nocData: any) => {
+  const handleNOCReceived = () => {
     setLibraryNOCReceived(true);
     setShowLibraryNOCModal(false);
     setLibraryInfo(null);

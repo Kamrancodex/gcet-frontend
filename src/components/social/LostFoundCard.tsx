@@ -17,7 +17,7 @@ interface LostFoundItem {
   author: string;
   authorName: string;
   authorContact: string;
-  contactInfo: string;
+  contactInfo?: string;
   type: "lost" | "found";
   title: string;
   description: string;
@@ -40,14 +40,12 @@ interface LostFoundCardProps {
   item: LostFoundItem;
   onUpvote: (itemId: string) => void;
   onClaim: (itemId: string) => void;
-  onContact?: (authorId: string) => void;
 }
 
 const LostFoundCard: React.FC<LostFoundCardProps> = ({
   item,
   onUpvote,
   onClaim,
-  onContact,
 }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -176,9 +174,17 @@ const LostFoundCard: React.FC<LostFoundCardProps> = ({
           <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <div className="flex items-center gap-2 mb-2">
               <Phone className="w-4 h-4 text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Contact Information</span>
+              <span className="text-sm font-medium text-gray-700">
+                Contact Information
+              </span>
             </div>
-            <div className={`${item.status === "claimed" || item.status === "resolved" ? "blur-sm select-none" : ""}`}>
+            <div
+              className={`${
+                item.status === "claimed" || item.status === "resolved"
+                  ? "blur-sm select-none"
+                  : ""
+              }`}
+            >
               <p className="text-sm text-gray-900 font-medium">
                 {item.contactInfo}
               </p>
@@ -300,7 +306,6 @@ const LostFoundCard: React.FC<LostFoundCardProps> = ({
               I Found This!
             </button>
           )}
-
         </div>
       </div>
     </div>

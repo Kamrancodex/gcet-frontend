@@ -4,7 +4,6 @@ import OpenRegistrationModal from "../../components/dashboard/OpenRegistrationMo
 import { registrationAPI } from "../../services/api";
 import {
   Plus,
-  Filter,
   Search,
   Calendar,
   Users,
@@ -17,7 +16,6 @@ import {
   Eye,
   Edit,
   School,
-  FileText,
   Download,
   BookOpen,
 } from "lucide-react";

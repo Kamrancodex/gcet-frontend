@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   X,
   Bell,
-  Heart,
   MessageCircle,
   ArrowUp,
   ArrowDown,
