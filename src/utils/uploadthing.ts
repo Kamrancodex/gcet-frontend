@@ -3,13 +3,7 @@ import {
   generateUploadDropzone,
 } from "@uploadthing/react";
 
-// Type definition for the file router
-type OurFileRouter = {
-  imageUploader: {
-    input: void;
-    output: { url: string; key: string; name: string; size: number };
-  };
-};
-
-export const UploadButton = generateUploadButton<OurFileRouter>();
-export const UploadDropzone = generateUploadDropzone<OurFileRouter>();
+// Use a generic type since we don't have access to the backend FileRouter
+// This is a workaround for the build - in production, you'd share types properly
+export const UploadButton = generateUploadButton();
+export const UploadDropzone = generateUploadDropzone();
