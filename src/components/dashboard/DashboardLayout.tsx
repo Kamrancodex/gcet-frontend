@@ -46,7 +46,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   }, [mobileMenuOpen]);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-gray-50 pt-16 lg:pt-20 overflow-x-hidden">
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
@@ -59,11 +59,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
-              initial={{ x: -280 }}
+              initial={{ x: "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: -280 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="mobile-sidebar fixed left-0 top-20 bottom-0 w-64 bg-white shadow-xl z-50 lg:hidden"
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 22, stiffness: 220 }}
+              className="mobile-sidebar fixed left-0 top-16 sm:top-20 bottom-0 w-full max-w-sm bg-white shadow-xl z-50 lg:hidden overflow-y-auto"
             >
               <DashboardSidebar
                 collapsed={false}
@@ -106,7 +106,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           />
 
           {/* Page Content */}
-          <main className="p-6">{children}</main>
+          <main className="px-4 pt-5 pb-8 sm:px-6 sm:pt-6 lg:px-8">{children}</main>
         </div>
       </div>
     </div>

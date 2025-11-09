@@ -76,7 +76,7 @@ export const QuickStatsWidget: React.FC<{
       : stats || defaultStats;
 
   return (
-    <div className="grid grid-cols-2 gap-4 h-full">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 h-full">
       {statsList.map((stat: any, index: number) => {
         const Icon = stat.icon;
         return (
@@ -85,15 +85,17 @@ export const QuickStatsWidget: React.FC<{
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="text-center"
+            className="text-center p-3 sm:p-0"
           >
             <div
               className={`w-12 h-12 mx-auto mb-2 rounded-full bg-${stat.color}-100 flex items-center justify-center`}
             >
               <Icon className={`w-6 h-6 text-${stat.color}-600`} />
             </div>
-            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-            <p className="text-sm text-gray-600">{stat.label}</p>
+            <p className="text-xl sm:text-2xl font-bold text-gray-900">
+              {stat.value}
+            </p>
+            <p className="text-xs sm:text-sm text-gray-600">{stat.label}</p>
           </motion.div>
         );
       })}
@@ -172,7 +174,7 @@ export const RecentActivityWidget: React.FC<{
     : activities || defaultActivities;
 
   return (
-    <div className="space-y-4 h-full overflow-y-auto">
+    <div className="space-y-3 sm:space-y-4 h-full overflow-y-auto pr-1">
       {activityList.map((activity: any) => {
         const Icon = activity.icon;
         return (

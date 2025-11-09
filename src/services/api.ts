@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-const API_BASE_URL = "https://gcet-backend.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+// const API_BASE_URL = "https://gcet-backend.onrender.com";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -53,6 +53,7 @@ export interface LoginResponse {
   message: string;
   requiresOTP: boolean;
   email?: string;
+  devOtp?: string;
   token?: string;
   user?: {
     id: string;
@@ -84,6 +85,7 @@ export interface ResendOTPRequest {
 export interface ResendOTPResponse {
   message: string;
   email: string;
+  devOtp?: string;
 }
 
 // Auth API calls

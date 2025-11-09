@@ -6,9 +6,6 @@ import {
   GraduationCap,
   BookOpen,
   Users,
-  Settings,
-  FileText,
-  DollarSign,
   ChevronLeft,
   ChevronRight,
   Home,
@@ -17,6 +14,7 @@ import {
   UserCheck,
   Receipt,
   Clock,
+  X,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -65,7 +63,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       label: "Library",
       icon: BookOpen,
       path: "/dashboard/library",
-      roles: ["student", "teacher"], // Only for students and teachers (general library access)
+      roles: ["teacher"], // Hide from student sidebar
       color: "green",
     },
     {
@@ -116,29 +114,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       roles: ["teacher", "admin", "admissions_admin"],
       color: "orange",
     },
-    {
-      id: "reports",
-      label: "Reports",
-      icon: FileText,
-      path: "/dashboard/reports",
-      roles: ["admin", "admissions_admin", "teacher"],
-      color: "gray",
-    },
-    {
-      id: "finances",
-      label: "Finances",
-      icon: DollarSign,
-      path: "/dashboard/finances",
-      roles: ["admin", "admissions_admin"],
-      color: "yellow",
-    },
-    {
-      id: "settings",
-      label: "Settings",
-      icon: Settings,
-      path: "/dashboard/settings",
-      color: "gray",
-    },
   ];
 
   const filteredItems = sidebarItems.filter((item) => {
@@ -179,11 +154,15 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     return colors[color as keyof typeof colors] || colors.gray;
   };
 
+  const baseLinkClasses = isMobile
+    ? "px-4 py-3 text-base"
+    : "px-3 py-2 text-sm";
+
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col overflow-y-auto bg-white">
       {/* Header */}
       <div className="p-4 border-b border-gray-200">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           {(!collapsed || isMobile) && (
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
@@ -210,15 +189,25 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               )}
             </button>
           )}
+          {isMobile && (
+            <button
+              onClick={onToggle}
+              className="p-2 rounded-lg hover:bg-gray-100"
+              aria-label="Close menu"
+            >
+              <X className="w-4 h-4 text-gray-600" />
+            </button>
+          )}
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-2 space-y-1">
+      <nav className="flex-1 p-2 space-y-1.5">
         {/* Back to Home */}
         <Link
           to="/"
-          className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-gray-600 hover:bg-gray-50 hover:text-gray-700`}
+          className={`flex items-center gap-3 rounded-lg transition-colors text-gray-600 hover:bg-gray-50 hover:text-gray-700 ${baseLinkClasses}`}
+          onClick={isMobile ? onToggle : undefined}
         >
           <Home className="w-5 h-5 flex-shrink-0" />
           {(!collapsed || isMobile) && (
@@ -233,14 +222,15 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           const isActive = location.pathname === item.path;
 
           return (
-            <Link
-              key={item.id}
-              to={item.path}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors relative ${getColorClasses(
-                item.color || "gray",
-                isActive
-              )}`}
-            >
+                <Link
+                  key={item.id}
+                  to={item.path}
+                  className={`flex items-center gap-3 rounded-lg transition-colors relative ${baseLinkClasses} ${getColorClasses(
+                    item.color || "gray",
+                    isActive
+                  )}`}
+                  onClick={isMobile ? onToggle : undefined}
+                >
               <Icon className="w-5 h-5 flex-shrink-0" />
               {(!collapsed || isMobile) && (
                 <>
@@ -274,7 +264,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
 
       {/* User Info */}
       {(!collapsed || isMobile) && user && (
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-gray-200 mt-auto">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
               <span className="text-blue-600 font-semibold text-sm">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { GraduationCap, Mail, Lock, User, AlertCircle } from "lucide-react";
+import { toast } from "sonner";
 import { authAPI } from "../services/api";
 import { useAuth } from "../contexts/AuthContext";
 import OTPVerification from "../components/OTPVerification";
@@ -17,6 +18,7 @@ const Login = () => {
   const [showOTP, setShowOTP] = useState(false);
   const [otpEmail, setOtpEmail] = useState("");
   const [maskedEmail, setMaskedEmail] = useState("");
+  const [devOtpHint, setDevOtpHint] = useState<string | null>(null);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -53,6 +55,17 @@ const Login = () => {
         console.log("🔐 OTP required, showing OTP screen");
         setOtpEmail(formData.email);
         setMaskedEmail(response.email || formData.email);
+        setDevOtpHint(response.devOtp || null);
+
+        toast.info(
+          response.devOtp
+            ? `Test Mode: Your OTP is ${response.devOtp}. We're students running without SMTP, so use this code to continue.`
+            : "Test Mode: Check the backend logs for your OTP. We're students running without SMTP.",
+          {
+            duration: 7000,
+          }
+        );
+
         setShowOTP(true);
       } else if (response.token && response.user) {
         // Direct login (fallback)
@@ -102,6 +115,7 @@ const Login = () => {
     setOtpEmail("");
     setMaskedEmail("");
     setError("");
+    setDevOtpHint(null);
   };
 
   if (showOTP) {
@@ -112,6 +126,7 @@ const Login = () => {
           maskedEmail={maskedEmail}
           onVerified={handleOTPVerified}
           onBack={handleBackToLogin}
+          devOtp={devOtpHint || undefined}
         />
       </div>
     );

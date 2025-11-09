@@ -300,13 +300,13 @@ const Dashboard = () => {
     >
       <div className="space-y-6">
         {/* Welcome Section */}
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white">
-          <div className="flex items-center justify-between">
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 sm:p-6 text-white">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold mb-2">
                 Welcome back, {user?.name || 'User'}!
               </h2>
-              <p className="text-blue-100">
+              <p className="text-blue-100 text-sm sm:text-base max-w-xl">
                 Here's what's happening with your {(user?.role || 'student').replace("_", " ")}{" "}
                 account today.
               </p>
@@ -326,10 +326,10 @@ const Dashboard = () => {
           (user?.role === "admissions_admin" ||
             user?.role === "admin" ||
             user?.role === "library_admin") && (
-            <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <div className="flex items-center justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mr-3"></div>
-                <span className="text-gray-600">
+            <div className="bg-white rounded-xl border border-gray-200 p-5 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 py-6 sm:py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <span className="text-gray-600 text-center text-sm sm:text-base">
                   Loading{" "}
                   {user?.role === "library_admin" ? "library" : "dashboard"}{" "}
                   data...
@@ -348,14 +348,14 @@ const Dashboard = () => {
 
         {/* Additional Info for New Users */}
         {widgets.length === 0 && user?.role !== "student" && (
-          <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-            <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <span className="text-blue-600 text-2xl">👋</span>
+          <div className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 text-center">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <span className="text-blue-600 text-xl sm:text-2xl">👋</span>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
               Welcome to your dashboard!
             </h3>
-            <p className="text-gray-600 max-w-md mx-auto">
+            <p className="text-gray-600 text-sm sm:text-base max-w-md mx-auto">
               Your personalized dashboard will show relevant information based
               on your role. Some features may take a moment to load.
             </p>
@@ -366,11 +366,11 @@ const Dashboard = () => {
       {/* Floating Social Hub Button - Positioned above AI Chat */}
       <button
         onClick={() => navigate("/social")}
-        className="fixed bottom-28 right-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 z-40 group"
+        className="fixed bottom-24 right-4 sm:bottom-28 sm:right-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white p-3 sm:p-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 z-40 group"
         title="Open Social Hub"
       >
-        <Users className="w-6 h-6" />
-        <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+        <Users className="w-5 h-5 sm:w-6 sm:h-6" />
+        <span className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
           GCET Social Hub
         </span>
       </button>

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Home,
-  Package,
-  Plus,
-  Search,
-} from "lucide-react";
+import { Home, Package, Plus, Search, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -20,12 +15,16 @@ interface SocialSidebarProps {
   onCreatePost: () => void;
   searchTerm: string;
   onSearchChange: (value: string) => void;
+  isMobileOpen?: boolean;
+  onCloseMobile?: () => void;
 }
 
-const SocialSidebar: React.FC<SocialSidebarProps> = ({ 
-  onCreatePost, 
-  searchTerm, 
-  onSearchChange 
+const SocialSidebar: React.FC<SocialSidebarProps> = ({
+  onCreatePost,
+  searchTerm,
+  onSearchChange,
+  isMobileOpen = false,
+  onCloseMobile,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,23 +53,53 @@ const SocialSidebar: React.FC<SocialSidebarProps> = ({
     );
   };
 
+  const containerClasses = isMobileOpen
+    ? "fixed inset-y-0 left-0 z-50 w-72 sm:w-80 bg-white border-r border-gray-200 flex flex-col overflow-y-auto shadow-2xl"
+    : "hidden lg:flex w-72 bg-white border-r border-gray-200 sticky top-16 flex-col overflow-y-auto";
+
+  const containerStyle = isMobileOpen
+    ? { height: "100vh" }
+    : { height: "calc(100vh - 4rem)" };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    onCloseMobile?.();
+  };
+
+  const handleCreate = () => {
+    onCreatePost();
+    onCloseMobile?.();
+  };
+
   return (
-    <div className="w-80 bg-white border-r border-gray-200 h-screen sticky top-16 flex flex-col overflow-y-auto" style={{ height: 'calc(100vh - 4rem)' }}>
+    <div className={containerClasses} style={containerStyle}>
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-            <span className="text-white font-bold text-lg">G</span>
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold text-lg">G</span>
+            </div>
+            <div>
+              <h1 className="font-bold text-lg text-gray-900">GCET Social</h1>
+              <p className="text-sm text-gray-600">Campus Community</p>
+            </div>
           </div>
-          <div>
-            <h1 className="font-bold text-lg text-gray-900">GCET Social</h1>
-            <p className="text-sm text-gray-600">Campus Community</p>
-          </div>
+
+          {isMobileOpen && (
+            <button
+              onClick={onCloseMobile}
+              className="p-2 rounded-lg hover:bg-gray-100 lg:hidden"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5 text-gray-500" />
+            </button>
+          )}
         </div>
 
         {/* Create Post Button */}
         <button
-          onClick={onCreatePost}
+          onClick={handleCreate}
           className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-3 rounded-xl hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl font-semibold mb-4"
         >
           <Plus className="w-5 h-5" />
@@ -96,7 +125,7 @@ const SocialSidebar: React.FC<SocialSidebarProps> = ({
           {sidebarItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => navigate(item.path)}
+              onClick={() => handleNavigate(item.path)}
               className={`
                 w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-colors
                 ${
@@ -127,7 +156,7 @@ const SocialSidebar: React.FC<SocialSidebarProps> = ({
       {/* Bottom Navigation - Dashboard Link */}
       <div className="border-t border-gray-200 p-3">
         <button
-          onClick={() => navigate("/dashboard")}
+          onClick={() => handleNavigate("/dashboard")}
           className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-colors text-gray-700 hover:bg-gray-50"
         >
           <span className="text-gray-500">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Clock, RotateCcw } from "lucide-react";
+import { toast } from "sonner";
 import { authAPI } from "../services/api";
 
 interface OTPVerificationProps {
@@ -8,6 +9,7 @@ interface OTPVerificationProps {
   maskedEmail: string;
   onVerified: (token: string, user: any) => void;
   onBack: () => void;
+  devOtp?: string;
 }
 
 const OTPVerification: React.FC<OTPVerificationProps> = ({
@@ -15,12 +17,14 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({
   maskedEmail,
   onVerified,
   onBack,
+  devOtp,
 }) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes
   const [canResend, setCanResend] = useState(false);
+  const [latestDevOtp, setLatestDevOtp] = useState<string | undefined>(devOtp);
 
   // Countdown timer
   useEffect(() => {
@@ -31,6 +35,21 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({
       setCanResend(true);
     }
   }, [timeLeft]);
+
+  useEffect(() => {
+    if (devOtp) {
+      setLatestDevOtp(devOtp);
+      toast.info(
+        `Test Mode: Use OTP ${devOtp}. We're students without SMTP access, so enter this code to continue.`,
+        { duration: 6000 }
+      );
+    } else {
+      toast.info(
+        "Test Mode: OTP sent. Check backend logs if no email arrives (SMTP disabled for students).",
+        { duration: 6000 }
+      );
+    }
+  }, [devOtp]);
 
   const handleOtpChange = (index: number, value: string) => {
     if (value.length > 1) return;
@@ -87,14 +106,31 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({
     setError("");
 
     try {
-      await authAPI.resendOTP({ email });
+      const response = await authAPI.resendOTP({ email });
       setTimeLeft(600); // Reset timer
       setCanResend(false);
       setOtp(["", "", "", "", "", ""]);
       const firstInput = document.getElementById("otp-0");
       firstInput?.focus();
+
+      if (response.devOtp) {
+        setLatestDevOtp(response.devOtp);
+        toast.success(
+          `New OTP generated: ${response.devOtp}. Remember we're in test mode without SMTP.`,
+          { duration: 6000 }
+        );
+      } else {
+        toast.success(
+          "New OTP generated. Check backend logs since email delivery is disabled in test mode.",
+          { duration: 6000 }
+        );
+      }
     } catch (err: any) {
       setError(err.response?.data?.error || "Failed to resend OTP");
+      toast.error(
+        err.response?.data?.error ||
+          "Could not resend OTP. Please try again or contact the admin."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -127,6 +163,19 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({
       </div>
 
       <div className="space-y-6">
+        <div className="bg-blue-50 border border-blue-200 text-blue-700 text-sm rounded-lg p-3 text-center">
+          {latestDevOtp ? (
+            <>
+              Test Phase: Use OTP{" "}
+              <span className="font-semibold">{latestDevOtp}</span>. We're
+              students without SMTP access yet, so codes appear here instead of
+              email.
+            </>
+          ) : (
+            <>Test Phase: SMTP is disabled. Check backend logs for your OTP.</>
+          )}
+        </div>
+
         {/* OTP Input */}
         <div className="flex justify-center gap-3">
           {otp.map((digit, index) => (

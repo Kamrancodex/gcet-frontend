@@ -5,6 +5,7 @@ import {
   Clock,
   Heart,
   MessageCircle,
+  Menu,
 } from "lucide-react";
 import { toast } from "sonner";
 import { socialAPI, getUser } from "../services/api";
@@ -43,6 +44,7 @@ const SocialHub: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loadingMore, setLoadingMore] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [currentUserId, setCurrentUserId] = useState<string>("");
 
   useEffect(() => {
@@ -186,11 +188,21 @@ const SocialHub: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex pt-16">
+      {/* Mobile overlay */}
+      {mobileSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          onClick={() => setMobileSidebarOpen(false)}
+        />
+      )}
+
       {/* Social Sidebar */}
-      <SocialSidebar 
+      <SocialSidebar
         onCreatePost={() => setShowCreatePost(true)}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
+        isMobileOpen={mobileSidebarOpen}
+        onCloseMobile={() => setMobileSidebarOpen(false)}
       />
 
       {/* Main Content */}
@@ -199,9 +211,18 @@ const SocialHub: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           {/* Simple Header with Sort */}
           <div className="bg-white shadow-sm border-b sticky top-16 z-10">
-            <div className="px-6 py-3 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Feed</h2>
-              
+            <div className="px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <button
+                  className="lg:hidden inline-flex items-center justify-center p-2 rounded-lg hover:bg-gray-100 text-gray-600"
+                  onClick={() => setMobileSidebarOpen(true)}
+                  aria-label="Open menu"
+                >
+                  <Menu className="w-5 h-5" />
+                </button>
+                <h2 className="text-lg font-semibold text-gray-900">Feed</h2>
+              </div>
+
               <div className="relative">
                 <select
                   value={sortBy}

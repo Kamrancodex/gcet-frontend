@@ -280,27 +280,27 @@ const SemesterRegistration: React.FC = () => {
   return (
     <>
       <DashboardLayout title="Semester Registration Management">
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-6 max-w-6xl mx-auto">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-blue-100">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
                   <School className="w-8 h-8 text-blue-600" />
-                  <h1 className="text-2xl font-bold text-gray-900">
+                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">
                     Govt College of Engineering and Technology Safapora
                   </h1>
                 </div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-1">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
                   Semester Registration Management
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-sm sm:text-base text-gray-600">
                   Manage semester registrations for existing students.
                 </p>
               </div>
               <button
                 onClick={handleOpenRegistration}
-                className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl w-full lg:w-auto"
               >
                 <Plus className="w-5 h-5" />
                 Open Registration
@@ -310,10 +310,10 @@ const SemesterRegistration: React.FC = () => {
 
           {/* Tabs */}
           <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
+            <nav className="-mb-px flex gap-6 overflow-x-auto pb-1">
               <button
                 onClick={() => setActiveTab("sessions")}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                className={`py-2 px-1 whitespace-nowrap border-b-2 font-medium text-sm ${
                   activeTab === "sessions"
                     ? "border-blue-500 text-blue-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -365,7 +365,7 @@ const SemesterRegistration: React.FC = () => {
           {!loading && !error && activeTab === "sessions" && (
             <div className="space-y-6">
               {/* Sessions Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {registrationSessions.map((session) => (
                   <div
                     key={session._id}
@@ -376,8 +376,8 @@ const SemesterRegistration: React.FC = () => {
                     }`}
                   >
                     {/* Session Header */}
-                    <div className="p-6 pb-4">
-                      <div className="flex items-start justify-between mb-3">
+                    <div className="p-5 sm:p-6 pb-4 sm:pb-5">
+                      <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
                         <div className="flex items-center gap-3">
                           <div
                             className={`p-2 rounded-lg ${
@@ -442,7 +442,7 @@ const SemesterRegistration: React.FC = () => {
                         <h4 className="text-sm font-medium text-gray-700 mb-2">
                           Available Courses:
                         </h4>
-                        <div className="flex flex-wrap gap-1">
+                        <div className="flex flex-wrap gap-2">
                           {session.availableCourses
                             .slice(0, 2)
                             .map((course, index) => (
@@ -481,12 +481,12 @@ const SemesterRegistration: React.FC = () => {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-xl">
-                      <div className="flex items-center justify-between">
+                    <div className="px-5 sm:px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="text-xs text-gray-500">
                           Created by {session.createdBy}
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                           <button
                             onClick={() => {
                               setOpenSessionId(session._id);
@@ -537,7 +537,7 @@ const SemesterRegistration: React.FC = () => {
             <div className="space-y-6">
               {/* Filters */}
               <div className="bg-white rounded-lg border border-gray-200 p-4">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Search
@@ -590,7 +590,7 @@ const SemesterRegistration: React.FC = () => {
                   </div>
 
                   <div className="flex items-end">
-                    <button className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    <button className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors w-full">
                       <Download className="w-4 h-4" />
                       Export
                     </button>
@@ -600,7 +600,7 @@ const SemesterRegistration: React.FC = () => {
 
               {/* Registrations Table */}
               <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                <div className="overflow-x-auto">
+                <div className="hidden md:block overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
@@ -704,6 +704,83 @@ const SemesterRegistration: React.FC = () => {
                       ))}
                     </tbody>
                   </table>
+                </div>
+
+                {/* Mobile Cards */}
+                <div className="md:hidden divide-y divide-gray-200">
+                  {filteredRegistrations.map((registration) => (
+                    <div key={registration._id} className="p-4 space-y-3">
+                      <div className="flex flex-col gap-1">
+                        <p className="text-sm font-semibold text-gray-900">
+                          {registration.studentName}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {registration.universityRegNumber}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {registration.email}
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3 text-xs text-gray-600">
+                        <div>
+                          <p className="font-medium text-gray-700">Semester</p>
+                          <p>
+                            {registration.currentSemester} →{" "}
+                            {registration.registeringForSemester}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-700">Registered</p>
+                          <p>{formatDate(registration.registeredAt)}</p>
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-700">Status</p>
+                          <span
+                            className={`inline-flex mt-1 px-2 py-1 text-[11px] font-medium rounded-full border ${getStatusColor(
+                              registration.status
+                            )}`}
+                          >
+                            {registration.status.replace("_", " ").toUpperCase()}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-700">Fee Status</p>
+                          <span
+                            className={`inline-flex mt-1 px-2 py-1 text-[11px] font-medium rounded-full border ${getFeeStatusColor(
+                              registration.feeStatus
+                            )}`}
+                          >
+                            {registration.feeStatus.toUpperCase()}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          {registration.libraryCleared ? (
+                            <CheckCircle className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <XCircle className="w-4 h-4 text-red-500" />
+                          )}
+                          <span>
+                            {registration.libraryCleared ? "Cleared" : "Pending"}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button className="text-blue-600 hover:text-blue-900">
+                            <Eye className="w-4 h-4" />
+                          </button>
+                          <button className="text-green-600 hover:text-green-900">
+                            <CheckCircle className="w-4 h-4" />
+                          </button>
+                          <button className="text-red-600 hover:text-red-900">
+                            <XCircle className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
                 {filteredRegistrations.length === 0 && (

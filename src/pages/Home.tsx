@@ -216,6 +216,63 @@ function FeatureCard({
   );
 }
 
+function DeveloperCard({
+  initials,
+  name,
+  role,
+  focus,
+  accent = "sky",
+}: {
+  initials: string;
+  name: string;
+  role: string;
+  focus: string;
+  accent?: "sky" | "emerald" | "violet" | "amber";
+}) {
+  const accentClasses: Record<
+    typeof accent,
+    { bg: string; text: string; ring: string }
+  > = {
+    sky: {
+      bg: "bg-sky-100",
+      text: "text-sky-700",
+      ring: "ring-1 ring-sky-200",
+    },
+    emerald: {
+      bg: "bg-emerald-100",
+      text: "text-emerald-700",
+      ring: "ring-1 ring-emerald-200",
+    },
+    violet: {
+      bg: "bg-violet-100",
+      text: "text-violet-700",
+      ring: "ring-1 ring-violet-200",
+    },
+    amber: {
+      bg: "bg-amber-100",
+      text: "text-amber-700",
+      ring: "ring-1 ring-amber-200",
+    },
+  };
+
+  const colors = accentClasses[accent] ?? accentClasses.sky;
+
+  return (
+    <div className="glass rounded-2xl p-6 text-center shadow-sm border border-white/50">
+      <div
+        className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full font-semibold text-xl ${colors.bg} ${colors.text} ${colors.ring}`}
+      >
+        {initials}
+      </div>
+      <div className="text-base font-semibold text-slate-900">{name}</div>
+      <div className="mt-1 text-sm text-slate-600">{role}</div>
+      <div className="mt-3 inline-flex items-center justify-center rounded-full bg-slate-50 px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">
+        {focus}
+      </div>
+    </div>
+  );
+}
+
 function Features() {
   const items = [
     {
@@ -509,6 +566,60 @@ export default function Home() {
                 <li>Track status and get SMS/email updates</li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+      <section className="bg-white">
+        <div className="container-narrow pb-16">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold text-slate-900">
+              Project Team
+            </h2>
+            <p className="mt-2 text-sm text-slate-600 max-w-2xl mx-auto">
+              Guided by dedicated faculty with passionate students building the
+              GCET Digital Campus experience.
+            </p>
+          </div>
+
+          <div className="flex justify-center mb-10">
+            <DeveloperCard
+              initials="MP"
+              name="Mr. Parvaz"
+              role="Professor & Project Guide"
+              focus="Department of Computer Science"
+              accent="emerald"
+            />
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <DeveloperCard
+              initials="KB"
+              name="Kamran Bashir"
+              role="Full Stack Developer"
+              focus="React • Node.js • MongoDB"
+              accent="sky"
+            />
+            <DeveloperCard
+              initials="FF"
+              name="Faisal Fayaz"
+              role="Frontend Developer"
+              focus="React • Database Management"
+              accent="violet"
+            />
+            <DeveloperCard
+              initials="DW"
+              name="Danish Wazir"
+              role="AI/ML Specialist"
+              focus="Machine Learning • JavaScript"
+              accent="amber"
+            />
+            <DeveloperCard
+              initials="NA"
+              name="Niyaz Ali"
+              role="UI & Integrations"
+              focus="CSS • Framer • Tailwind • Payments"
+              accent="emerald"
+            />
           </div>
         </div>
       </section>

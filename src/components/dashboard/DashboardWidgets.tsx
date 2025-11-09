@@ -51,6 +51,7 @@ const SortableWidget: React.FC<SortableWidgetProps> = ({
   onConfigure,
 }) => {
   const [showActions, setShowActions] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const {
     attributes,
     listeners,
@@ -64,6 +65,25 @@ const SortableWidget: React.FC<SortableWidgetProps> = ({
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(pointer: coarse)");
+    const handleChange = () => {
+      const isTouch = mediaQuery.matches;
+      setIsTouchDevice(isTouch);
+      if (isTouch) {
+        setShowActions(true);
+      } else {
+        setShowActions(false);
+      }
+    };
+
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   const getSizeClasses = (size: string) => {
     switch (size) {
@@ -81,6 +101,7 @@ const SortableWidget: React.FC<SortableWidgetProps> = ({
   };
 
   const WidgetComponent = widget.component;
+  const actionsVisible = showActions || isTouchDevice || isDragging;
 
   return (
     <div
@@ -95,17 +116,20 @@ const SortableWidget: React.FC<SortableWidgetProps> = ({
         className={`bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 h-full relative group ${
           isDragging ? "shadow-lg ring-2 ring-blue-500 ring-opacity-50" : ""
         }`}
-        onMouseEnter={() => setShowActions(true)}
-        onMouseLeave={() => setShowActions(false)}
+        onMouseEnter={() => !isTouchDevice && setShowActions(true)}
+        onMouseLeave={() => !isTouchDevice && setShowActions(false)}
+        onTouchStart={() => setShowActions(true)}
       >
         {/* Widget Header */}
-        <div className="flex items-center justify-between p-4 pb-2">
-          <h3 className="font-semibold text-gray-900">{widget.title}</h3>
+        <div className="flex items-center justify-between gap-3 p-4 pb-2 sm:p-5 sm:pb-3">
+          <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate">
+            {widget.title}
+          </h3>
 
           <div
             className={`flex items-center gap-1 transition-opacity ${
-              showActions ? "opacity-100" : "opacity-0"
-            }`}
+              actionsVisible ? "opacity-100" : "opacity-0"
+            } md:group-hover:opacity-100`}
           >
             {widget.configurable && onConfigure && (
               <button
@@ -139,7 +163,7 @@ const SortableWidget: React.FC<SortableWidgetProps> = ({
         </div>
 
         {/* Widget Content */}
-        <div className="p-4 pt-0 h-full">
+        <div className="px-4 pb-4 pt-0 sm:px-5 sm:pb-5 h-full">
           <WidgetComponent {...widget.data} />
         </div>
       </motion.div>
@@ -229,7 +253,7 @@ const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
         onDragEnd={handleDragEnd}
       >
         <SortableContext items={widgets} strategy={rectSortingStrategy}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr">
+          <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6 auto-rows-fr">
             {widgets.map((widget) => (
               <SortableWidget
                 key={widget.id}
